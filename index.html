@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="pt-br" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Z&Z Assessoria | Richard Zawitoski</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: { light: '#FDE047', DEFAULT: '#FBBF24', dark: '#B45309' },
+                        darkness: '#0A0A0A',
+                    },
+                    animation: {
+                        'pulse-gold': 'pulse-gold 2s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'drive': 'drive 15s linear infinite',
+                        'zebra-flow': 'zebra-flow 4s linear infinite',
+                    },
+                    keyframes: {
+                        'pulse-gold': { '0%': { boxShadow: '0 0 0 0 rgba(251, 191, 36, 0.4)' }, '70%': { boxShadow: '0 0 0 15px rgba(251, 191, 36, 0)' }, '100%': { boxShadow: '0 0 0 0 rgba(251, 191, 36, 0)' } },
+                        'float': { '0%, 100%': { transform: 'translateY(0) rotate(0deg)' }, '50%': { transform: 'translateY(-20px) rotate(5deg)' } },
+                        'drive': { '0%': { transform: 'translateX(-100%) opacity(0)' }, '10%': { opacity: '0.1' }, '90%': { opacity: '0.1' }, '100%': { transform: 'translateX(100vw) opacity(0)' } },
+                        'zebra-flow': { '0%': { 'background-position': '0% 50%' }, '100%': { 'background-position': '200% 50%' } }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+        
+        body { font-family: 'Montserrat', sans-serif; background-color: #0A0A0A; color: #fff; overflow-x: hidden; width: 100%; }
+        .road-bg { background-image: linear-gradient(rgba(10,10,10,0.9), rgba(10,10,10,0.9)), url('https://www.transparenttextures.com/patterns/asphalt-dark.png'); position: relative; }
+        .road-line { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: repeating-linear-gradient(to bottom, transparent, transparent 20px, rgba(251, 191, 36, 0.1) 20px, rgba(251, 191, 36, 0.1) 40px); z-index: 0; }
+        .zebra-divider { height: 8px; background: repeating-linear-gradient(45deg, #FBBF24, #FBBF24 10px, #0A0A0A 10px, #0A0A0A 20px); width: 100%; opacity: 0.6; box-shadow: 0 0 15px rgba(251, 191, 36, 0.3); }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .text-gradient { background: linear-gradient(to right, #FBBF24, #FDE68A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .insta-hover:hover { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .zebra-text {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 900;
+            background: linear-gradient(90deg, #FBBF24 0%, #FBBF24 25%, #FFFFFF 25%, #FFFFFF 50%, #000000 50%, #000000 75%, #FBBF24 75%, #FBBF24 100%);
+            background-size: 200% 100%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            -webkit-text-stroke: 0.5px rgba(255, 255, 255, 0.4);
+            letter-spacing: -0.02em;
+        }
+
+        /* SEMÁFORO ANIMADO */
+        .semaforo-container { display: flex; flex-direction: column; gap: 2px; background: #1a1a1a; padding: 3px; border-radius: 4px; border: 1px solid #333; }
+        .luz { width: 8px; height: 8px; border-radius: 50%; background: #222; }
+        .vermelha { animation: ciclo-vermelho 4s infinite; }
+        .amarela { animation: ciclo-amarelo 4s infinite; }
+        .verde { animation: ciclo-verde 4s infinite; }
+
+        @keyframes ciclo-vermelho { 0%, 40% { background: #ff4444; box-shadow: 0 0 8px #ff4444; } 45%, 100% { background: #222; } }
+        @keyframes ciclo-amarelo { 0%, 40% { background: #222; } 45%, 65% { background: #ffbb00; box-shadow: 0 0 8px #ffbb00; } 70%, 100% { background: #222; } }
+        @keyframes ciclo-verde { 0%, 65% { background: #222; } 70%, 95% { background: #00ff44; box-shadow: 0 0 8px #00ff44; } 100% { background: #222; } }
+
+        .hamburger { cursor: pointer; display: none; }
+        @media (max-width: 768px) { .hamburger { display: block; } }
+        .hamburger .line { width: 30px; height: 3px; background-color: #FBBF24; display: block; margin: 6px auto; transition: all 0.3s ease-in-out; }
+        .hamburger.is-active .line:nth-child(2) { opacity: 0; }
+        .hamburger.is-active .line:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .hamburger.is-active .line:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+        
+        #mobile-nav { transform: translateX(100%); transition: 0.4s ease-in-out; }
+        #mobile-nav.open { transform: translateX(0); }
+    </style>
+</head>
+<body class="antialiased road-bg">
+
+    <div class="road-line hidden md:block"></div>
+
+    <nav class="fixed w-full z-[100] glass border-b border-gold/10 py-3 transition-all duration-500" id="navbar">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <div class="flex items-center gap-3">
+                <img src="foto1.png" alt="Z&Z Logo" class="h-10 md:h-14 w-auto">
+                <div class="flex items-center gap-2">
+                    <span class="text-[11px] md:text-xl uppercase zebra-text animate-zebra-flow">
+                        Z&Z Assessoria de Trânsito
+                    </span>
+                    <div class="semaforo-container flex">
+                        <div class="luz vermelha"></div>
+                        <div class="luz amarela"></div>
+                        <div class="luz verde"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-6">
+                <a href="https://www.instagram.com/zez_assessoria" target="_blank" class="text-white hover:text-gold transition-all text-xl">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/5511982441879" target="_blank" class="bg-gold text-darkness font-black px-4 py-2 rounded-full text-xs uppercase tracking-tighter hover:bg-white transition-all">
+                    CONSULTA ESPECIALIZADA
+                </a>
+            </div>
+
+            <div class="hamburger md:hidden" id="hamburger">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
+        </div>
+    </nav>
+
+    <div id="mobile-nav" class="fixed inset-0 z-[90] bg-[#0A0A0A]/95 backdrop-blur-xl flex flex-col items-center justify-center gap-6 md:hidden">
+        <a href="#solucoes" onclick="closeMenu()" class="text-white text-xl font-bold uppercase tracking-widest hover:text-gold transition-all">Soluções</a>
+        <a href="#depoimentos" onclick="closeMenu()" class="text-white text-xl font-bold uppercase tracking-widest hover:text-gold transition-all">Depoimentos</a>
+        <a href="#especialista" onclick="closeMenu()" class="text-white text-xl font-bold uppercase tracking-widest hover:text-gold transition-all">O Especialista</a>
+        <a href="#localizacao" onclick="closeMenu()" class="text-white text-xl font-bold uppercase tracking-widest hover:text-gold transition-all">Localização</a>
+        <div class="w-16 h-[1px] bg-white/20 my-2"></div>
+        <a href="https://www.instagram.com/zez_assessoria" target="_blank" onclick="closeMenu()" class="text-white text-lg font-black uppercase flex items-center gap-2 insta-hover">
+            <i class="fab fa-instagram text-2xl"></i> Instagram Oficial
+        </a>
+        <a href="https://wa.me/5511982441879" onclick="closeMenu()" class="bg-gold text-darkness px-8 py-3 mt-4 rounded-xl text-sm font-black uppercase shadow-[0_0_15px_rgba(251,191,36,0.2)]">
+            Consulta no WhatsApp
+        </a>
+    </div>
+
+    <section class="relative min-h-screen flex items-center justify-center pt-20 px-4 text-center overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-[0.20] pointer-events-none" style="background-image: url('fachada.png'); background-size: contain; background-repeat: no-repeat; background-position: center 35%; mask-image: radial-gradient(ellipse 70% 60% at center, black 15%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 70% 60% at center, black 15%, transparent 70%);"></div>
+        <i class="fas fa-traffic-cone absolute top-1/4 left-10 text-gold/10 text-6xl animate-float hidden md:block z-[1]"></i>
+        <i class="fas fa-car absolute bottom-1/4 right-10 text-gold/5 text-8xl animate-float hidden md:block z-[1]" style="animation-delay: 2s;"></i>
+        <div class="z-10" data-aos="fade-up" data-aos-duration="1500">
+            <div class="mb-4 inline-block bg-gold/10 border border-gold/20 px-3 py-1 rounded-full text-[10px] text-gold font-bold uppercase tracking-widest z-[2] relative">
+                <i class="fas fa-shield-halved mr-2"></i> Proteção Jurídica no Trânsito
+            </div>
+            <h1 class="text-4xl md:text-7xl font-black mb-4 uppercase leading-none tracking-tighter z-[2] relative">
+                Sua CNH é sua <br> <span class="text-gradient">LIBERDADE.</span>
+            </h1>
+            <p class="text-gray-400 text-sm md:text-xl max-w-2xl mx-auto mb-10 px-2 font-light z-[2] relative">
+                Defesa estratégica com o especialista <strong>Richard Zawitoski</strong>. Protegendo seu direito de dirigir em Mauá e região.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center z-[2] relative">
+                <a href="https://wa.me/5511982441879" target="_blank" class="animate-pulse-gold bg-gold text-darkness text-lg md:text-xl font-black px-8 py-4 rounded-xl shadow-xl">
+                    RESOLVER MEU CASO AGORA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="zebra-divider"></div>
+
+    <section id="solucoes" class="py-20 bg-darkness/80 px-4 relative">
+        <div class="container mx-auto text-center mb-12" data-aos="fade-up">
+            <h2 class="text-2xl md:text-4xl font-black uppercase italic">Soluções Especializadas</h2>
+            <div class="h-1 w-16 bg-gold mx-auto mt-4"></div>
+        </div>
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 relative z-10">
+            <div class="glass p-5 rounded-2xl text-center border-b-2 border-gold/30 hover:bg-gold/5 transition-all" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-list-ol text-2xl text-gold mb-3"></i><h3 class="text-[10px] md:text-sm font-bold uppercase">Pontuação</h3></div>
+            <div class="glass p-5 rounded-2xl text-center border-b-2 border-gold/30 hover:bg-gold/5 transition-all" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-ban text-2xl text-gold mb-3"></i><h3 class="text-[10px] md:text-sm font-bold uppercase">Suspensão</h3></div>
+            <div class="glass p-5 rounded-2xl text-center border-b-2 border-gold/30 hover:bg-gold/5 transition-all" data-aos="fade-up" data-aos-delay="300"><i class="fas fa-gavel text-2xl text-gold mb-3"></i><h3 class="text-[10px] md:text-sm font-bold uppercase">Cassação</h3></div>
+            <div class="glass p-5 rounded-2xl text-center border-b-2 border-gold/30 hover:bg-gold/5 transition-all" data-aos="fade-up" data-aos-delay="400"><i class="fas fa-car-burst text-2xl text-gold mb-3"></i><h3 class="text-[10px] md:text-sm font-bold uppercase">Apreendido</h3></div>
+            <div class="glass p-5 rounded-2xl text-center border-b-2 border-gold/30 hover:bg-gold/5 transition-all" data-aos="fade-up" data-aos-delay="100"><i class="fas fa-exchange-alt text-2xl text-gold mb-3"></i><h3 class="text-[10px] md:text-sm font-bold uppercase">Transferência</h3></div>
+            <div class="glass p-5 rounded-2xl text-center border-b-2 border-gold/30 hover:bg-gold/5 transition-all" data-aos="fade-up" data-aos-delay="200"><i class="fas fa-file-signature text-2xl text-gold mb-3"></i><h3 class="text-[10px] md:text-sm font-bold uppercase">Licenciamento</h3></div>
+            <div class="glass p-5 rounded-2xl text-center border-b-2 border-gold/30 hover:bg-gold/5 transition-all" data-aos="fade-up" data-aos-delay="300"><i class="fas fa-unlock-keyhole text-2xl text-gold mb-3"></i><h3 class="text-[10px] md:text-sm font-bold uppercase">Desbloqueio</h3></div>
+            <div class="glass p-5 rounded-2xl text-center border-b-2 border-gold/30 hover:bg-gold/5 transition-all" data-aos="fade-up" data-aos-delay="400"><i class="fas fa-clone text-2xl text-gold mb-3"></i><h3 class="text-[10px] md:text-sm font-bold uppercase">2ª Via</h3></div>
+        </div>
+    </section>
+
+    <section id="depoimentos" class="py-20 bg-darkness/90 px-4 overflow-hidden relative border-y border-white/5">
+        <div class="container mx-auto relative z-10">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-12 text-center md:text-left gap-6" data-aos="fade-right">
+                <h2 class="text-3xl font-black uppercase italic tracking-tighter">Depoimentos no</h2>
+                <div class="flex items-center gap-4 glass px-6 py-3 rounded-2xl border-gold/30">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="h-7 w-auto">
+                    <div class="text-left border-l border-white/10 pl-4">
+                        <div class="flex text-gold text-xs"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                        <p class="text-[10px] font-bold uppercase tracking-widest opacity-70">Avaliações Reais</p>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+                <a href="https://share.google/RPHLr1JqBh4Vwnj71" target="_blank" class="glass p-6 rounded-3xl border-b-4 border-gold block hover:translate-y-[-5px] transition-all">
+                    <p class="text-gray-400 text-xs italic mb-4 leading-relaxed">"Atendimento excelente e muita agilidade nos processos. Richard resolveu meu problema de forma profissional."</p>
+                    <span class="font-bold text-[10px] uppercase tracking-widest text-gold">— Leonardo Bonesi</span>
+                </a>
+                <a href="https://share.google/jS9TCs9XCzL9NZjUE" target="_blank" class="glass p-6 rounded-3xl border-b-4 border-gold block hover:translate-y-[-5px] transition-all">
+                    <p class="text-gray-400 text-xs italic mb-4 leading-relaxed">"Melhor assessoria de Mauá. Transparência total e suporte jurídico de verdade. Recomendo a todos!"</p>
+                    <span class="font-bold text-[10px] uppercase tracking-widest text-gold">— Roberio Neres</span>
+                </a>
+                <a href="https://share.google/V4oOUrAH4LnbYztdj" target="_blank" class="glass p-6 rounded-3xl border-b-4 border-gold block hover:translate-y-[-5px] transition-all">
+                    <p class="text-gray-400 text-xs italic mb-4 leading-relaxed">"Equipe muito atenciosa. Estava com a CNH suspensa e o Richard me ajudou a recuperar meu direito rapidamente."</p>
+                    <span class="font-bold text-[10px] uppercase tracking-widest text-gold">— Thiago Souza</span>
+                </a>
+                <a href="https://share.google/szCbQvinxXyM6ZWwo" target="_blank" class="glass p-6 rounded-3xl border-b-4 border-gold block hover:translate-y-[-5px] transition-all">
+                    <p class="text-gray-400 text-xs italic mb-4 leading-relaxed">"Preço justo e serviço de qualidade. Senti confiança desde a primeira consulta. Nota 10!"</p>
+                    <span class="font-bold text-[10px] uppercase tracking-widest text-gold">— Adnaldo Silva</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="especialista" class="py-24 px-4 bg-darkness relative overflow-hidden">
+        <i class="fas fa-truck-moving absolute bottom-0 left-0 text-gold/5 text-[150px] animate-drive hidden md:block"></i>
+        <div class="container mx-auto flex flex-col md:flex-row items-center gap-12 relative z-10">
+            <div class="w-full md:w-1/2 flex justify-center" data-aos="zoom-in">
+                <div class="relative glass p-2 rounded-[40px] border-gold/20 shadow-2xl">
+                    <img src="foto2.png" alt="Richard Zawitoski" class="w-full max-w-[280px] rounded-[30px]" onerror="this.src='https://via.placeholder.com/350x450/FBBF24/000000?text=RICHARD+ZAWITOSKI'">
+                </div>
+            </div>
+            <div class="w-full md:w-1/2 text-center md:text-left" data-aos="fade-left">
+                <h2 class="text-5xl md:text-7xl font-black mb-6 leading-tight tracking-tighter uppercase">RICHARD <br><span class="text-gradient">Zawitoski</span></h2>
+                <div class="flex flex-wrap justify-center md:justify-start gap-2 mb-8">
+                    <span class="bg-gold/10 border border-gold/30 px-3 py-1.5 rounded-full text-[9px] font-bold text-gold uppercase">Assessor Parlamentar</span>
+                    <span class="bg-gold/10 border border-gold/30 px-3 py-1.5 rounded-full text-[9px] font-bold text-gold uppercase">Estudante de Direito</span>
+                    <span class="bg-gold/10 border border-gold/30 px-3 py-1.5 rounded-full text-[9px] font-bold text-gold uppercase">Suplente a Vereador em Mauá</span>
+                </div>
+                <p class="text-gray-400 text-sm md:text-lg italic border-l-4 border-gold pl-5 mb-10 leading-relaxed">"Minha trajetória em Mauá é pautada pela defesa do cidadão. Na Z&Z, luto pela sua liberdade de dirigir."</p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="https://wa.me/5511982441879" target="_blank" class="bg-white text-darkness px-8 py-3 rounded-xl font-black text-sm uppercase hover:bg-gold transition-all flex items-center justify-center gap-2">
+                        <i class="fab fa-whatsapp"></i> Falar com Richard
+                    </a>
+                    <a href="https://www.instagram.com/richard_zawitoski?igsh=MWJxamhtaDd3Y3VxcQ==" target="_blank" class="glass px-8 py-3 rounded-xl font-black text-sm uppercase text-white hover:text-gold transition-all flex items-center justify-center gap-2">
+                        <i class="fab fa-instagram text-xl"></i> Perfil Oficial
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="localizacao" class="py-20 px-4 bg-darkness/80 border-t border-white/5 relative">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 relative z-10">
+            <div class="glass p-10 rounded-3xl" data-aos="fade-up">
+                <h3 class="text-2xl font-bold mb-5 text-gold uppercase italic tracking-tight"><i class="fas fa-location-dot mr-2"></i>Onde estamos?</h3>
+                <p class="text-gray-300 text-base leading-relaxed mb-4">Av. Barão de Mauá, 5193<br>Jardim Itapeva, Mauá - SP</p>
+                <div class="h-[250px] w-full rounded-2xl overflow-hidden border-2 border-gold/20">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3654.444738520336!2d-46.4316104!3d-23.6599725!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce69201639f70d%3A0x6b490f233f208112!2sAv.%20Bar%C3%A3o%20de%20Mau%C3%A1%2C%205193%20-%20Jardim%20Itapeva%2C%20Mau%C3%A1%20-%20SP%2C%2009341-550!5e0!3m2!1spt-BR!2sbr!4v1713000000000!5m2!1spt-BR!2sbr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+            <div class="glass p-10 rounded-3xl flex flex-col justify-center" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-2xl font-bold mb-6 text-gold uppercase italic tracking-tight"><i class="fas fa-clock mr-2"></i>Horários</h3>
+                <ul class="space-y-4 w-full">
+                    <li class="flex justify-between items-center border-b border-white/10 pb-3"><span class="text-white font-bold text-sm md:text-base">Seg. a Sáb.</span><span class="text-gold font-black bg-gold/10 px-3 py-1 rounded-lg text-sm md:text-base">09:00 às 18:00</span></li>
+                    <li class="flex justify-between items-center border-b border-white/10 pb-3"><span class="text-gray-400 text-sm md:text-base">Almoço</span><span class="text-gray-300 text-sm md:text-base">13:00 às 14:00</span></li>
+                    <li class="flex justify-between items-center pt-1"><span class="text-gray-400 text-sm md:text-base">Domingo</span><span class="text-red-500 font-bold uppercase text-xs bg-red-500/10 px-3 py-1 rounded-lg">Fechado</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-16 text-center opacity-80 px-4">
+        <img src="foto1.png" alt="Z&Z" class="h-12 mx-auto mb-8">
+        <div class="flex justify-center items-center gap-10 text-3xl mb-10">
+            <a href="https://wa.me/5511982441879" target="_blank" class="text-white hover:text-green-500 transition-all"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/zez_assessoria" target="_blank" class="text-white hover:text-gold transition-all"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.instagram.com/richard_zawitoski" target="_blank" class="glass border border-gold/50 text-gold w-12 h-12 rounded-xl flex items-center justify-center text-2xl hover:bg-gold hover:text-darkness transition-all"><i class="fab fa-instagram-square"></i></a>
+        </div>
+        <p class="text-[9px] uppercase tracking-[0.5em] text-gray-500">Z&Z Assessoria | Richard Zawitoski © 2026</p>
+    </footer>
+
+    <a href="https://www.instagram.com/zez_assessoria" target="_blank" class="fixed bottom-[104px] right-7 z-[200] bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white w-14 h-14 rounded-2xl flex items-center justify-center text-3xl shadow-xl hover:scale-110 transition-all animate-pulse-gold">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="https://wa.me/5511982441879" target="_blank" class="fixed bottom-6 right-6 z-[200] bg-green-500 text-white w-16 h-16 rounded-2xl flex items-center justify-center text-4xl shadow-2xl animate-pulse-gold hover:scale-110 transition-all">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 1000, once: true, easing: 'ease-out-back' });
+        const hamburger = document.getElementById('hamburger');
+        const mobileNav = document.getElementById('mobile-nav');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('is-active');
+            mobileNav.classList.toggle('open');
+            document.body.classList.toggle('overflow-hidden');
+        });
+        function closeMenu() {
+            hamburger.classList.remove('is-active');
+            mobileNav.classList.remove('open');
+            document.body.classList.remove('overflow-hidden');
+        }
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 30) { nav.classList.add('bg-darkness/95', 'py-2'); } 
+            else { nav.classList.remove('bg-darkness/95', 'py-2'); }
+        });
+    </script>
+</body>
+</html>
